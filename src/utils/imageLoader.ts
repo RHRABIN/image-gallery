@@ -11,7 +11,7 @@ import image11 from "../assets/image-11.jpeg"
 import image10 from "../assets/image-10.jpeg"
 
 const importAllImages = () => {
-    const images: string[] = [image11, image3, image2, image7, image9, image4, image5, image6, image8, image10, image1];
+    const images: { id: number, url: string }[] = [{ url: image11, id: 1 }, { url: image3, id: 2 }, { url: image2, id: 3 }, { url: image7, id: 4 }, { url: image9, id: 5 }, { url: image4, id: 6 }, { url: image5, id: 7 }, { url: image6, id: 8 }, { url: image8, id: 9 }, { url: image10, id: 10 }, { url: image1, id: 11 }];
     return images;
 };
 
