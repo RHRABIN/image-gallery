@@ -1,8 +1,17 @@
 import { IParamImage } from "../types";
-import "./css/image.css"
+import "./css/image.css";
+import { useDrag } from 'react-dnd'
+
 
 const ImageComponent = (params: IParamImage) => {
     const { data, index, selectedImage, setSelectedImage } = params;
+    const [{ isDragging }, drag] = useDrag(() => ({
+        type: "ImageComponent",
+        item: { id: data.id, url: data.url },
+        collect: monitor => ({
+            isDragging: !!monitor.isDragging(),
+        }),
+    }))
 
     const handleSelect = (id: number) => {
         const isExist = selectedImage?.includes(id);
@@ -17,9 +26,15 @@ const ImageComponent = (params: IParamImage) => {
         }
     };
 
-
     return (
-        <div className={`border-2 rounded-lg group overflow-hidden  ${index === 0 ? "col-span-2 row-span-2" : ""}  
+        <div
+            ref={drag}
+            style={{
+                opacity: isDragging ? 0.5 : 1,
+                cursor: "move"
+            }}
+
+            className={`border-2 rounded-lg group overflow-hidden  ${index === 0 ? "col-span-2 row-span-2" : ""}  
         ${selectedImage?.includes(data.id) ? "image-selected" : "image-parent"} `}
         >
             <img src={data.url} className="w-full h-auto" alt="Your Alt Text" />

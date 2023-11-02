@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import './App.css'
-import ImageComponent from './components/ImageComponent';
 import importAllImages from './utils/imageLoader';
 import Header from './components/Header';
-import UploadImage from './components/UploadImage';
 import { Image } from './types';
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import AllImages from './components/AllImages';
 
 function App() {
   const [selectedImage, setSelectedImage] = useState<number[]>([]);
-  const [allImages, setAllImages] = useState<Image[]>([]); const images = importAllImages();
+  const [allImages, setAllImages] = useState<Image[]>([]);
+  const images = importAllImages();
 
   useEffect(() => {
     if (images) {
@@ -23,16 +25,14 @@ function App() {
     setSelectedImage([])
   };
 
+
   return (
     <main className='bg-white rounded-lg '>
       {/* title */}
       <Header handleDelete={handleDelete} selectedImage={selectedImage} />
-      <div className='p-4 grid grid-cols-5 gap-4'>
-        {
-          allImages.map((url, idx) => <ImageComponent setSelectedImage={setSelectedImage} selectedImage={selectedImage} key={idx} index={idx} data={url} />)
-        }
-        <UploadImage />
-      </div>
+      <DndProvider backend={HTML5Backend}>
+        {allImages?.length > 0 && <AllImages allImages={allImages} selectedImage={selectedImage} setAllImages={setAllImages} setSelectedImage={setSelectedImage} />}
+      </DndProvider>
     </main>
   )
 }

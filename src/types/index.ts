@@ -12,3 +12,6 @@ export type Image = {
     id: number;
     url: string;
 }
+export const ItemTypes = {
+    KNIGHT: 'knight'
+}
