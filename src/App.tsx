@@ -4,11 +4,8 @@ import ImageComponent from './components/ImageComponent';
 import importAllImages from './utils/imageLoader';
 import Header from './components/Header';
 import UploadImage from './components/UploadImage';
+import { Image } from './types';
 
-type Image = {
-  id: number;
-  url: string;
-}
 function App() {
   const [selectedImage, setSelectedImage] = useState<number[]>([]);
   const [allImages, setAllImages] = useState<Image[]>([]); const images = importAllImages();
