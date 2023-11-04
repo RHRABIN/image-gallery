@@ -2,24 +2,27 @@
 import { GridContextProvider, GridDropZone, GridItem } from 'react-grid-dnd';
 import "../App.css";
 import ImageComponent from './ImageComponent';
-import { onChange } from '../utils/handleOnChange';
+import { handleOnChange } from '../utils/handleOnChange';
 import { AllImagesProps } from '../types';
 import useBoxesPerRow from '../hooks/useScreen';
 
 const AllImages = (props: AllImagesProps) => {
     const { allImages, selectedImage, setAllImages, setSelectedImage } = props;
+    // responsive items hooks
     const itemsPerRow = useBoxesPerRow();
-    const handleOnChange = (
+    // handle change function
+    const onChange = (
         sourceId: string,
         sourceIndex: number,
         targetIndex: number,
         targetId?: string | undefined
     ) => {
-        onChange(sourceId, sourceIndex, targetIndex, targetId, allImages, setAllImages);
+        handleOnChange(sourceId, sourceIndex, targetIndex, targetId, allImages, setAllImages);
     };
     return (
-        <GridContextProvider onChange={handleOnChange}>
-            <div className="flex w-full h-[90vh] ">
+        <GridContextProvider onChange={onChange}>
+            <div className="block sm:flex w-full h-[100vh] ">
+                {/* left grid big image */}
                 <GridDropZone
                     className=" w-[300px] h-[300px] border m-2"
                     id="left"
@@ -32,12 +35,12 @@ const AllImages = (props: AllImagesProps) => {
                         </GridItem>
                     ))}
                 </GridDropZone>
-
+                {/* right grid images */}
                 <GridDropZone
-                    className="flex-[1]  m-2"
+                    className="flex-[1]  m-2 h-full"
                     id="right"
-                    boxesPerRow={itemsPerRow}
-                    rowHeight={250}
+                    boxesPerRow={itemsPerRow.boxesPerRow}
+                    rowHeight={itemsPerRow.rowHeight}
                 >
                     {allImages.right.map((item, index) => (
                         <GridItem className='p-2' key={item.id}>

@@ -1,7 +1,7 @@
 import { move, swap } from 'react-grid-dnd';
 import { ItemsType } from '../types';
 
-export function onChange(
+export function handleOnChange(
     sourceId: string,
     sourceIndex: number,
     targetIndex: number,

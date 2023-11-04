@@ -1,21 +1,36 @@
 import { useState, useEffect } from 'react';
 
 const useBoxesPerRow = () => {
-    const [boxesPerRow, setBoxesPerRow] = useState(3);
+    const [boxesPerRow, setBoxesPerRow] = useState({
+        boxesPerRow: 4,
+        rowHeight: 250,
+    });
 
     useEffect(() => {
         const updateBoxesPerRow = () => {
             const screenWidth = window.innerWidth;
 
             if (screenWidth >= 1280) {
-                setBoxesPerRow(4);
+                setBoxesPerRow({
+                    boxesPerRow: 4,
+                    rowHeight: 250
+                });
             } else if (screenWidth >= 1024) {
-                setBoxesPerRow(3);
+                setBoxesPerRow({
+                    boxesPerRow: 3,
+                    rowHeight: 250
+                });
             }
-            else if (screenWidth >= 980) {
-                setBoxesPerRow(2);
+            else if (screenWidth >= 480) {
+                setBoxesPerRow({
+                    boxesPerRow: 2,
+                    rowHeight: 200
+                });
             } else {
-                setBoxesPerRow(1);
+                setBoxesPerRow({
+                    boxesPerRow: 2,
+                    rowHeight: 200
+                });
             }
         };
 
