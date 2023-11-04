@@ -3,8 +3,6 @@ import './App.css'
 import importAllImages from './utils/imageLoader';
 import Header from './components/Header';
 import { Image } from './types';
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
 import AllImages from './components/AllImages';
 
 function App() {
@@ -27,12 +25,11 @@ function App() {
 
 
   return (
-    <main className='bg-white rounded-lg '>
+    <main className='bg-white rounded-lg  '>
       {/* title */}
+
       <Header handleDelete={handleDelete} selectedImage={selectedImage} />
-      <DndProvider backend={HTML5Backend}>
-        {allImages?.length > 0 && <AllImages allImages={allImages} selectedImage={selectedImage} setAllImages={setAllImages} setSelectedImage={setSelectedImage} />}
-      </DndProvider>
+      {allImages?.length > 0 && <AllImages allImages={allImages} selectedImage={selectedImage} setAllImages={setAllImages} setSelectedImage={setSelectedImage} />}
     </main>
   )
 }

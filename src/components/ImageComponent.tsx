@@ -1,18 +1,9 @@
 import { IParamImage } from "../types";
 import "./css/image.css";
-import { useDrag } from 'react-dnd'
 
 
 const ImageComponent = (params: IParamImage) => {
-    const { data, index, selectedImage, setSelectedImage } = params;
-    const [{ isDragging }, drag] = useDrag(() => ({
-        type: "ImageComponent",
-        item: { id: data.id, url: data.url },
-        collect: monitor => ({
-            isDragging: !!monitor.isDragging(),
-        }),
-    }))
-
+    const { data, selectedImage, setSelectedImage } = params;
     const handleSelect = (id: number) => {
         const isExist = selectedImage?.includes(id);
 
@@ -27,22 +18,17 @@ const ImageComponent = (params: IParamImage) => {
     };
 
     return (
-        <div
-            ref={drag}
-            style={{
-                opacity: isDragging ? 0.5 : 1,
-                cursor: "move"
-            }}
 
-            className={`border-2 rounded-lg group overflow-hidden  ${index === 0 ? "col-span-2 row-span-2" : ""}  
-        ${selectedImage?.includes(data.id) ? "image-selected" : "image-parent"} `}
+        <div
+            className={`h-full w-full border-2 rounded-lg group overflow-hidden  ${selectedImage?.includes(data.id) ? "image-selected" : "image-parent"}`}
         >
             <img src={data.url} className="w-full h-auto" alt="Your Alt Text" />
             <input
                 onClick={() => handleSelect(data.id)}
-                className={`z-10 absolute top-4 left-4 w-5 h-5 leading-tight  ${selectedImage?.includes(data.id) ? "block" : "hidden"} group-hover:block `}
+                className={`z-10 absolute top-4 left-4 w-5 h-5   ${selectedImage?.includes(data.id) ? "block" : "hidden"} group-hover:block `}
                 type="checkbox" checked={selectedImage?.includes(data.id)} />
         </div>
+
 
     );
 };

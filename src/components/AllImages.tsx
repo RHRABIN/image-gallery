@@ -1,42 +1,48 @@
-import React from 'react';
+import { useState } from 'react';
+import { IParamAllImages, ItemType } from '../types';
+import { GridContextProvider, GridDropZone, GridItem, swap } from 'react-grid-dnd';
+import "../App.css";
 import ImageComponent from './ImageComponent';
-import { Image } from '../types';
-import { useDrop } from 'react-dnd';
-import UploadImage from './UploadImage';
-type IParamImage = {
-    setSelectedImage: React.Dispatch<React.SetStateAction<number[]>>;
-    selectedImage: number[];
-    setAllImages: React.Dispatch<React.SetStateAction<Image[]>>;
-    allImages: Image[];
 
-}
-const AllImages = (props: IParamImage) => {
-    const { allImages, setSelectedImage, selectedImage } = props;
+const AllImages = (props: IParamAllImages) => {
+    const { allImages, selectedImage, setSelectedImage } = props;
+    const [items, setItems] = useState<ItemType>({ imagesData: allImages });
 
-    const handleDrop = (droppedItem: Image) => {
-        console.log("droppedItem", droppedItem)
-    };
-    // DND - drop - hook implement
-    const [{ isOver }, drop] = useDrop(() => ({
-        accept: "ImageComponent",
-        drop: (droppedItem: Image) => handleDrop(droppedItem),
-        collect: (monitor) => ({
-            isOver: !!monitor.isOver(),
-        }),
-    }));
-    console.log(drop)
+    // handle on change
+    function onChange(sourceId: string, sourceIndex: number, targetIndex: number) {
+        if (sourceId in items) {
+            const result = swap(items[sourceId], sourceIndex, targetIndex);
+            setItems({
+                ...items,
+                [sourceId]: result
+            });
+        }
+    }
+
     return (
-        <section
-            ref={drop}
-            style={{
-                border: isOver ? "1px solid red" : "",
-            }}
-            className='p-4 grid grid-cols-5 gap-4'>
-            {
-                allImages.map((url, idx) => <ImageComponent setSelectedImage={setSelectedImage} selectedImage={selectedImage} key={idx} index={idx} data={url} />)
-            }
-            <UploadImage />
-        </section>
+        <>
+
+            <GridContextProvider onChange={onChange}>
+                <GridDropZone
+                    className=" h-[100vh]"
+                    id="imagesData"
+                    boxesPerRow={5}
+                    rowHeight={240}
+                >
+                    {items.imagesData.map((item, index) => {
+
+                        return (
+                            <GridItem
+                                className='p-1'
+                                key={item.id} >
+                                <ImageComponent data={item} index={index} selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
+                            </GridItem>
+                        )
+                    })}
+                </GridDropZone>
+            </GridContextProvider>
+
+        </>
     );
 };
 
