@@ -2,24 +2,27 @@ import { useState, useEffect } from 'react';
 import './App.css'
 import importAllImages from './utils/imageLoader';
 import Header from './components/Header';
-import { Image } from './types';
 import AllImages from './components/AllImages';
+import { ItemsType } from './types';
 
 function App() {
   const [selectedImage, setSelectedImage] = useState<number[]>([]);
-  const [allImages, setAllImages] = useState<Image[]>([]);
   const images = importAllImages();
+  const [allImages, setAllImages] = useState<ItemsType>({
+    left: images,
+    right: [],
+  });
 
   useEffect(() => {
     if (images) {
-      setAllImages(images)
+      setAllImages({ left: images, right: [] })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleDelete = () => {
-    const resultArray = allImages.filter(item => !selectedImage.includes(item.id));
-    setAllImages(resultArray)
+    // const resultArray = allImages.left.filter(item => !selectedImage.includes(item.id));
+    // setAllImages(resultArray)
     setSelectedImage([])
   };
 
@@ -27,9 +30,8 @@ function App() {
   return (
     <main className='bg-white rounded-lg  '>
       {/* title */}
-
       <Header handleDelete={handleDelete} selectedImage={selectedImage} />
-      {allImages?.length > 0 && <AllImages allImages={allImages} selectedImage={selectedImage} setAllImages={setAllImages} setSelectedImage={setSelectedImage} />}
+      {allImages?.left.length > 0 && <AllImages allImages={allImages} selectedImage={selectedImage} setAllImages={setAllImages} setSelectedImage={setSelectedImage} />}
     </main>
   )
 }
