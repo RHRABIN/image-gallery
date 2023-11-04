@@ -24,7 +24,7 @@ const ImageComponent = (params: IParamImage) => {
             <input
                 onClick={() => handleSelect(data.id)}
                 className={`z-10 absolute top-4 left-4 w-5 h-5   ${selectedImage?.includes(data.id) ? "block" : "hidden"} group-hover:block `}
-                type="checkbox" checked={selectedImage?.includes(data.id)} />
+                type="checkbox" defaultChecked={selectedImage?.includes(data.id)} />
 
 
         </div>

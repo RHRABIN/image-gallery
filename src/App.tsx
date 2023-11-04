@@ -9,20 +9,24 @@ function App() {
   const [selectedImage, setSelectedImage] = useState<number[]>([]);
   const images = importAllImages();
   const [allImages, setAllImages] = useState<ItemsType>({
-    left: images,
-    right: [],
+    left: [],
+    right: images,
   });
 
   useEffect(() => {
     if (images) {
-      setAllImages({ left: images, right: [] })
+      setAllImages({ left: [], right: images })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleDelete = () => {
-    // const resultArray = allImages.left.filter(item => !selectedImage.includes(item.id));
-    // setAllImages(resultArray)
+    const resultLeftArray = allImages.left.filter(item => !selectedImage.includes(item.id));
+    const resultRightArray = allImages.right.filter(item => !selectedImage.includes(item.id));
+    setAllImages({
+      left: resultLeftArray,
+      right: resultRightArray
+    })
     setSelectedImage([])
   };
 
@@ -31,7 +35,7 @@ function App() {
     <main className='bg-white rounded-lg  '>
       {/* title */}
       <Header handleDelete={handleDelete} selectedImage={selectedImage} />
-      {allImages?.left.length > 0 && <AllImages allImages={allImages} selectedImage={selectedImage} setAllImages={setAllImages} setSelectedImage={setSelectedImage} />}
+      {allImages?.right.length > 0 && <AllImages allImages={allImages} selectedImage={selectedImage} setAllImages={setAllImages} setSelectedImage={setSelectedImage} />}
     </main>
   )
 }
