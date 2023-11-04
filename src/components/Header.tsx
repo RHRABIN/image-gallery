@@ -8,9 +8,16 @@ const Header = (params: ISelectedImage) => {
         <header className='flex justify-between border-b py-4 border-[#ccc]  px-4'>
             {/* <h1 className="text-xl font-bold">Gallery</h1> */}
             <h1 className="text-xl font-bold">
-                {selectedImage.length} {selectedImage.length > 1 ? "Files" : "File"} selected
+                {
+                    selectedImage.length === 0
+                        ? <span>Gallery</span>
+                        : <span>{selectedImage.length} {selectedImage.length > 1 ? "Files" : "File"} selected</span>
+                }
+
             </h1>
-            <button onClick={handleDelete} className='text-red-600 font-semibold hover:border-b border-red-600'>Delete files</button>
+            {
+                selectedImage.length > 0 && <button onClick={handleDelete} className='text-red-600 font-semibold hover:border-b border-red-600'>Delete files</button>
+            }
         </header>
     );
 };
