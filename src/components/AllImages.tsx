@@ -4,7 +4,8 @@ import "../App.css";
 import ImageComponent from './ImageComponent';
 import { handleOnChange } from '../utils/handleOnChange';
 import { AllImagesProps } from '../types';
-import useBoxesPerRow from '../hooks/useScreen';
+import useBoxesPerRow from '../hooks/useBoxesPerRow';
+import UploadImage from './UploadImage';
 
 const AllImages = (props: AllImagesProps) => {
     const { allImages, selectedImage, setAllImages, setSelectedImage } = props;
@@ -15,16 +16,16 @@ const AllImages = (props: AllImagesProps) => {
         sourceId: string,
         sourceIndex: number,
         targetIndex: number,
-        targetId?: string | undefined
+        targetId?: string | undefined,
     ) => {
         handleOnChange(sourceId, sourceIndex, targetIndex, targetId, allImages, setAllImages);
     };
     return (
         <GridContextProvider onChange={onChange}>
-            <div className="block sm:flex w-full h-[100vh] ">
+            <div className="block sm:flex w-full h-[100vh]">
                 {/* left grid big image */}
                 <GridDropZone
-                    className=" w-[300px] h-[300px] border m-2"
+                    className=" w-[400px]  md:w-[300px] h-[300px] border m-2"
                     id="left"
                     boxesPerRow={1}
                     rowHeight={300}
@@ -43,9 +44,9 @@ const AllImages = (props: AllImagesProps) => {
                     rowHeight={itemsPerRow.rowHeight}
                 >
                     {allImages.right.map((item, index) => (
-                        <GridItem className='p-2' key={item.id}>
+                        item.url != "" ? <GridItem className='p-2' key={item.id}>
                             <ImageComponent data={item} index={index} selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
-                        </GridItem>
+                        </GridItem> : <UploadImage />
                     ))}
 
 
