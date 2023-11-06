@@ -44,9 +44,9 @@ const AllImages = (props: AllImagesProps) => {
                     rowHeight={itemsPerRow.rowHeight}
                 >
                     {allImages.right.map((item, index) => (
-                        item.url != "" ? <GridItem className='p-2' key={item.id}>
-                            <ImageComponent data={item} index={index} selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
-                        </GridItem> : <UploadImage />
+                        <GridItem className='p-2' key={item.id}>
+                            {item.url != "" ? <ImageComponent data={item} index={index} selectedImage={selectedImage} setSelectedImage={setSelectedImage} /> : <UploadImage />}
+                        </GridItem>
                     ))}
 
 

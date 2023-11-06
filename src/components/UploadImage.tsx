@@ -20,18 +20,18 @@ const UploadImage = () => {
     return (
 
         <div
-            style={{
+            // style={{
 
-                zIndex: 0,
-                position: "absolute",
-                width: "214px",
-                opacity: 1,
-                height: "230px",
-                boxSizing: "border-box",
-                transform: "translate3d(670px, 510px, 0px) scale(1)",
+            //     zIndex: 0,
+            //     position: "absolute",
+            //     width: "214px",
+            //     opacity: 1,
+            //     height: "230px",
+            //     boxSizing: "border-box",
+            //     transform: "translate3d(670px, 510px, 0px) scale(1)",
 
-            }}
-        // className='absolute w-[234px] h-[200px] z-0'
+            // }}
+            className=' w-[205px] h-[230px] z-0'
         >
             <label
                 className={`border-dashed border-4 rounded-lg cursor-pointer hover:border-sky-200 flex items-center justify-center flex-col h-full gap-y-1`}
