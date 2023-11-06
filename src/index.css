@@ -10,3 +10,31 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+ input[type="checkbox"] {
+    appearance: none; 
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    width: 1.475rem; 
+    height: 1.475rem; 
+    background-color: white; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+}
+
+input[type="checkbox"]:checked {
+    background-color: blue; 
+}
+
+ input[type="checkbox"]:checked::before {
+    content: '';
+    display: block;
+    width: 14px; 
+    height: 7px; 
+    border: 3px solid white; 
+    border-left: none; 
+    border-bottom: none; 
+    transform: rotate(130deg); 
+    position: relative;
+    top: 6px; 
+    left: 4px;
+}

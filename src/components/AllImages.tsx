@@ -24,33 +24,35 @@ const AllImages = (props: AllImagesProps) => {
         <GridContextProvider onChange={onChange}>
             <div className="block sm:flex w-full h-[100vh]">
                 {/* left grid big image */}
-                <GridDropZone
-                    className=" w-[400px]  md:w-[300px] h-[300px] border m-2"
-                    id="left"
-                    boxesPerRow={1}
-                    rowHeight={300}
-                >
-                    {allImages.left.map((item, index) => (
-                        <GridItem key={item.id}>
-                            <ImageComponent data={item} index={index} selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
-                        </GridItem>
-                    ))}
-                </GridDropZone>
+                <div>
+                    <GridDropZone
+                        className=" w-[400px]  md:w-[300px] h-[300px] border m-2"
+                        id="left"
+                        boxesPerRow={1}
+                        rowHeight={300}
+                    >
+                        {allImages.left.map((item, index) => (
+                            <GridItem key={item.id}>
+                                <ImageComponent data={item} index={index} selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
+                            </GridItem>
+                        ))}
+                    </GridDropZone>
+                </div>
                 {/* right grid images */}
-                <GridDropZone
-                    className="flex-[1]  m-2 h-full"
-                    id="right"
-                    boxesPerRow={itemsPerRow.boxesPerRow}
-                    rowHeight={itemsPerRow.rowHeight}
-                >
-                    {allImages.right.map((item, index) => (
-                        <GridItem className='p-2' key={item.id}>
-                            {item.url != "" ? <ImageComponent data={item} index={index} selectedImage={selectedImage} setSelectedImage={setSelectedImage} /> : <UploadImage />}
-                        </GridItem>
-                    ))}
-
-
-                </GridDropZone>
+                <div className='flex-[1]'>
+                    <GridDropZone
+                        className=" m-2 h-full"
+                        id="right"
+                        boxesPerRow={itemsPerRow.boxesPerRow}
+                        rowHeight={itemsPerRow.rowHeight}
+                    >
+                        {allImages.right.map((item, index) => (
+                            <GridItem className='p-2' key={item.id}>
+                                {item.url != "" ? <ImageComponent data={item} index={index} selectedImage={selectedImage} setSelectedImage={setSelectedImage} /> : <UploadImage />}
+                            </GridItem>
+                        ))}
+                    </GridDropZone>
+                </div>
             </div>
         </GridContextProvider>
     );

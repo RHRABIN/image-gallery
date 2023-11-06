@@ -11,7 +11,7 @@ const Header = (params: ISelectedImage) => {
                 {
                     selectedImage.length === 0
                         ? <span>Gallery</span>
-                        : <span className="flex gap-1  items-center"><input type="checkbox" defaultChecked className="h-6 w-6" /> {selectedImage.length} {selectedImage.length > 1 ? "Files" : "File"} selected</span>
+                        : <span className="flex gap-1  items-center"><input type="checkbox" disabled defaultChecked className="h-6 w-6" /> {selectedImage.length} {selectedImage.length > 1 ? "Files" : "File"} selected</span>
                 }
 
             </h1>
